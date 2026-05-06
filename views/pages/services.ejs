@@ -1,0 +1,31 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<section class="page-hero-simple">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> → Services</div>
+    <h1>Our Cleaning Services</h1>
+    <p class="page-desc">Professional cleaning for every need — residential, commercial, move-in/out, and more.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="services-grid services-grid-lg">
+      <% site.services.forEach(service => { %>
+      <a href="/services/<%= service.slug %>" class="service-card service-card-lg">
+        <div class="service-icon service-icon-lg"><%= service.icon %></div>
+        <h3><%= service.name %></h3>
+        <p><%= service.desc %></p>
+        <ul class="service-features-list">
+          <% service.features.forEach(f => { %>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><%= f %></li>
+          <% }) %>
+        </ul>
+        <div class="service-price"><%= service.price %></div>
+        <span class="service-link">Book Now →</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('../partials/cta-band') %>
+<%- include('../partials/footer') %>

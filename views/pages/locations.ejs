@@ -1,0 +1,43 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero-simple">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> → Locations</div>
+    <h1>Cleaning Services Across the USA</h1>
+    <p class="page-desc">We serve 30+ cities across 12 states. Find professional cleaning near you.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% site.states.forEach(state => { %>
+    <div class="state-section">
+      <div class="state-section-header">
+        <div class="state-abbr-lg"><%= state.abbr %></div>
+        <div>
+          <h2><a href="/cleaning-services-<%= state.slug %>"><%= state.name %></a></h2>
+          <span class="tier-badge tier-<%= state.tier %>">Tier <%= state.tier %> Market</span>
+        </div>
+      </div>
+      <div class="cities-grid">
+        <% site.cities.filter(c => state.cities.includes(c.slug)).forEach(city => { %>
+        <a href="/house-cleaning/<%= city.slug %>-<%= city.stateAbbr.toLowerCase() %>" class="city-card">
+          <div class="city-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="city-card-info">
+            <h3><%= city.name %></h3>
+            <p><%= city.neighborhoods.slice(0,2).join(', ') %></p>
+          </div>
+          <span class="city-card-arrow">→</span>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('../partials/cta-band') %>
+<%- include('../partials/footer') %>

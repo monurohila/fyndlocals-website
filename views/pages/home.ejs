@@ -1,0 +1,213 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container hero-container">
+    <div class="hero-left reveal">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available Today in 30+ US Cities
+      </div>
+      <h1>America's Most <em>Trusted</em><br>Cleaning Service</h1>
+      <p class="hero-desc">Vetted, insured professionals. Same-day availability. 100% satisfaction guaranteed or we come back — free.</p>
+      <div class="hero-actions">
+        <a href="<%= site.phoneHref %>" class="btn-primary btn-large pulse-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call <%= site.phone %>
+        </a>
+        <a href="/get-a-quote" class="btn-ghost">Get Free Quote →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-stars">★★★★★</span><span>4.9/5 from 12,000+ reviews</span></div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><span>✓</span><span>Background-checked pros</span></div>
+        <div class="trust-sep"></div>
+        <div class="trust-item"><span>✓</span><span>Insured & bonded</span></div>
+      </div>
+    </div>
+    <div class="hero-right reveal reveal-delay">
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span class="hero-card-badge">Free Instant Quote</span>
+        </div>
+        <h3>Get a quote in 60 seconds</h3>
+        <p>No commitment. No spam. Just a price.</p>
+        <div class="quick-form">
+          <select class="form-select">
+            <option value="">Select service type</option>
+            <% site.services.forEach(s => { %>
+            <option value="<%= s.slug %>"><%= s.name %></option>
+            <% }) %>
+          </select>
+          <select class="form-select">
+            <option value="">Select your city</option>
+            <% site.cities.forEach(c => { %>
+            <option value="<%= c.slug %>"><%= c.name %>, <%= c.stateAbbr %></option>
+            <% }) %>
+          </select>
+          <a href="<%= site.phoneHref %>" class="btn-primary" style="width:100%; justify-content:center;">
+            Call for Your Free Quote
+          </a>
+        </div>
+        <p class="form-note">Or call us directly: <a href="<%= site.phoneHref %>"><%= site.phone %></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <% site.stats.forEach(stat => { %>
+      <div class="stat-item">
+        <span class="stat-value"><%= stat.value %></span>
+        <span class="stat-label"><%= stat.label %></span>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">What We Offer</span>
+      <h2>Cleaning Services for Every Need</h2>
+      <p>From regular house cleaning to deep cleans, move-outs, and Airbnb turnovers — we have you covered.</p>
+    </div>
+    <div class="services-grid">
+      <% site.services.forEach(service => { %>
+      <a href="/services/<%= service.slug %>" class="service-card">
+        <div class="service-icon"><%= service.icon %></div>
+        <h3><%= service.name %></h3>
+        <p><%= service.shortDesc %></p>
+        <div class="service-price"><%= service.price %></div>
+        <span class="service-link">Learn more →</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-dark" id="how">
+  <div class="container">
+    <div class="section-header light">
+      <span class="section-tag">Simple Process</span>
+      <h2>Book in Under 2 Minutes</h2>
+      <p>Getting a clean home has never been easier.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Call Us</h3>
+        <p>Call our free quote line. Tell us your location, home size, and service needed.</p>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Get Matched</h3>
+        <p>We match you with a vetted, background-checked cleaner available in your area.</p>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>We Clean</h3>
+        <p>Your cleaner arrives on time with all supplies. Sit back and enjoy your free time.</p>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Relax</h3>
+        <p>Walk into a spotless home. Not happy? We come back free — no questions asked.</p>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:48px;">
+      <a href="<%= site.phoneHref %>" class="btn-primary btn-large pulse-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call Now – Free Quote
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS PREVIEW -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Where We Serve</span>
+      <h2>Cleaning Services Near You</h2>
+      <p>We cover 30+ cities across 12 states — and growing.</p>
+    </div>
+    <div class="states-grid">
+      <% site.states.filter(s => s.tier <= 2).forEach(state => { %>
+      <a href="/cleaning-services-<%= state.slug %>" class="state-card">
+        <div class="state-abbr"><%= state.abbr %></div>
+        <div class="state-info">
+          <span class="state-name"><%= state.name %></span>
+          <span class="state-cities"><%= state.cities.length %> cities</span>
+        </div>
+        <span class="state-arrow">→</span>
+      </a>
+      <% }) %>
+    </div>
+    <div style="text-align:center; margin-top:32px;">
+      <a href="/locations" class="btn-outline">View All Locations →</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section section-cream">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Customer Reviews</span>
+      <h2>What Our Customers Say</h2>
+      <p>Over 12,000 five-star reviews across the USA.</p>
+    </div>
+    <div class="reviews-grid">
+      <% site.reviews.forEach(review => { %>
+      <div class="review-card">
+        <div class="review-stars"><% for(let i=0;i<review.rating;i++){%>★<% } %></div>
+        <p class="review-text">"<%= review.text %>"</p>
+        <div class="review-author">
+          <div class="review-avatar"><%= review.name.charAt(0) %></div>
+          <div>
+            <span class="review-name"><%= review.name %></span>
+            <span class="review-city"><%= review.city %></span>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Common Questions</span>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <% site.faqs.forEach((faq, i) => { %>
+      <div class="faq-item" id="faq-<%= i %>">
+        <button class="faq-question" onclick="toggleFaq(<%= i %>)">
+          <%= faq.q %>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><p><%= faq.a %></p></div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/cta-band') %>
+<%- include('../partials/footer') %>

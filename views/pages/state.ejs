@@ -1,0 +1,64 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> → <a href="/locations">Locations</a> → <%= state.name %></div>
+    <div class="city-hero-inner">
+      <div class="city-badge"><%= state.abbr %></div>
+      <h1>House Cleaning Services<br>in <em><%= state.name %></em></h1>
+      <p class="page-desc"><%= state.desc %> Our vetted professionals are ready to serve you across <%= state.name %>.</p>
+      <a href="<%= site.phoneHref %>" class="btn-primary btn-large pulse-btn" style="margin-top:28px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call <%= site.phone %> – Free Quote
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Cities in <%= state.name %></span>
+      <h2>Find Cleaners Near You</h2>
+      <p>Select your city below to see availability and get a free quote.</p>
+    </div>
+    <div class="cities-grid">
+      <% stateCities.forEach(city => { %>
+      <a href="/house-cleaning/<%= city.slug %>-<%= city.stateAbbr.toLowerCase() %>" class="city-card">
+        <div class="city-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="city-card-info">
+          <h3><%= city.name %></h3>
+          <p><%= city.neighborhoods.slice(0,2).join(', ') %> & more</p>
+        </div>
+        <span class="city-card-arrow">→</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Services in <%= state.name %></span>
+      <h2>What We Offer</h2>
+    </div>
+    <div class="services-grid">
+      <% site.services.forEach(service => { %>
+      <a href="/services/<%= service.slug %>" class="service-card">
+        <div class="service-icon"><%= service.icon %></div>
+        <h3><%= service.name %></h3>
+        <p><%= service.shortDesc %></p>
+        <div class="service-price"><%= service.price %></div>
+        <span class="service-link">Learn more →</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/cta-band') %>
+<%- include('../partials/footer') %>

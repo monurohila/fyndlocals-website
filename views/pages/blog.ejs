@@ -1,0 +1,28 @@
+<%- include('../partials/head') %>
+<%- include('../partials/nav') %>
+<section class="page-hero-simple">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> → Blog</div>
+    <h1>Cleaning Tips & Guides</h1>
+    <p class="page-desc">Expert advice from the FyndLocals team to keep your home spotless.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="blog-grid">
+      <% posts.forEach(post => { %>
+      <div class="blog-card">
+        <span class="blog-cat"><%= post.category %></span>
+        <h3><%= post.title %></h3>
+        <p><%= post.excerpt %></p>
+        <div class="blog-footer">
+          <span class="blog-date"><%= post.date %></span>
+          <a href="/blog/<%= post.slug %>" class="blog-read">Read more →</a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('../partials/cta-band') %>
+<%- include('../partials/footer') %>
