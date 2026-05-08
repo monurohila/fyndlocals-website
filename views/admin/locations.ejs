@@ -1,0 +1,116 @@
+<%- include('layout-top') %>
+
+<% if (flash) { %>
+<div class="alert alert-<%= flash.type === 'success' ? 'success' : 'error' %>"><%= flash.msg %></div>
+<% } %>
+
+<!-- Summary -->
+<div class="stats-row" style="grid-template-columns:repeat(4,1fr);">
+  <div class="stat-card highlight">
+    <div class="stat-card-label">Total Cities</div>
+    <div class="stat-card-value"><%= cities.length %></div>
+    <div class="stat-card-sub">Active city pages</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-label">States</div>
+    <div class="stat-card-value"><%= states.length %></div>
+    <div class="stat-card-sub">State landing pages</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-label">Phase 1 Cities</div>
+    <div class="stat-card-value"><%= cities.filter(c=>c.phase===1).length %></div>
+    <div class="stat-card-sub">Launch targets</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-label">Phase 2 & 3</div>
+    <div class="stat-card-value"><%= cities.filter(c=>c.phase>1).length %></div>
+    <div class="stat-card-sub">Scale targets</div>
+  </div>
+</div>
+
+<!-- States Table -->
+<div class="card" style="margin-bottom:20px;">
+  <div class="card-header">
+    <span class="card-title">State Pages</span>
+    <span class="badge badge-teal"><%= states.length %> states</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Tier</th>
+          <th>Cities</th>
+          <th>URL</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% states.forEach(s => { %>
+        <tr>
+          <td>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;background:#e6fffa;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#00b4a0;font-size:13px;"><%= s.abbr %></div>
+              <strong><%= s.name %></strong>
+            </div>
+          </td>
+          <td>
+            <span class="badge <%= s.tier===1 ? 'badge-teal' : s.tier===2 ? 'badge-blue' : 'badge-gray' %>">
+              Tier <%= s.tier %>
+            </span>
+          </td>
+          <td><%= s.cities.length %> cities</td>
+          <td><code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">/cleaning-services-<%= s.slug %></code></td>
+          <td><a href="/cleaning-services-<%= s.slug %>" target="_blank" class="btn btn-sm btn-outline">View Page</a></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Cities Table -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">City Pages</span>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span class="badge badge-teal"><%= cities.filter(c=>c.phase===1).length %> Phase 1</span>
+      <span class="badge badge-blue"><%= cities.filter(c=>c.phase===2).length %> Phase 2</span>
+      <span class="badge badge-gray"><%= cities.filter(c=>c.phase===3).length %> Phase 3</span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>State</th>
+          <th>Phase</th>
+          <th>Population</th>
+          <th>Neighborhoods</th>
+          <th>URL</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cities.forEach(c => { %>
+        <tr>
+          <td><strong><%= c.name %></strong></td>
+          <td><span class="badge badge-gray"><%= c.stateAbbr %></span></td>
+          <td>
+            <span class="badge <%= c.phase===1 ? 'badge-teal' : c.phase===2 ? 'badge-blue' : 'badge-gray' %>">
+              Phase <%= c.phase %>
+            </span>
+          </td>
+          <td style="font-size:13px;"><%= c.population %></td>
+          <td style="font-size:12px;color:#5a6a7a;max-width:200px;"><%= c.neighborhoods.slice(0,3).join(', ') %>…</td>
+          <td><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">/house-cleaning-<%= c.slug %>-<%= c.stateAbbr.toLowerCase() %></code></td>
+          <td><a href="/house-cleaning-<%= c.slug %>-<%= c.stateAbbr.toLowerCase() %>" target="_blank" class="btn btn-sm btn-outline">View</a></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('layout-bottom') %>

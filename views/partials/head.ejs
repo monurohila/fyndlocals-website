@@ -6,22 +6,53 @@
 <title><%= title %></title>
 <meta name="description" content="<%= meta %>">
 <meta name="robots" content="index, follow">
+<meta property="og:title" content="<%= title %>">
+<meta property="og:description" content="<%= meta %>">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
-<!-- Schema.org -->
+
+<% const cfg = locals.liveConfig || {}; %>
+
+<% if (cfg.googleAnalyticsId) { %>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= cfg.googleAnalyticsId %>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '<%= cfg.googleAnalyticsId %>');
+</script>
+<% } %>
+
+<% if (cfg.facebookPixelId) { %>
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '<%= cfg.facebookPixelId %>');
+fbq('track', 'PageView');
+</script>
+<% } %>
+
+<!-- Schema.org LocalBusiness -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "FyndLocals",
-  "telephone": "<%= site.phone %>",
-  "email": "<%= site.email %>",
+  "name": "<%= cfg.siteName || 'FyndLocals' %>",
+  "telephone": "<%= cfg.phone || site.phone %>",
+  "email": "<%= cfg.email || site.email %>",
   "url": "https://fyndlocals.com",
-  "description": "<%= site.tagline %>",
+  "description": "<%= cfg.tagline || site.tagline %>",
   "areaServed": "United States",
-  "serviceType": "House Cleaning"
+  "serviceType": "House Cleaning",
+  "priceRange": "$$"
 }
 </script>
 </head>

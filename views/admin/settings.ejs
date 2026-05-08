@@ -1,0 +1,131 @@
+<%- include('layout-top') %>
+
+<% if (flash) { %>
+<div class="alert alert-<%= flash.type === 'success' ? 'success' : 'error' %>"><%= flash.msg %></div>
+<% } %>
+
+<!-- PHONE HIGHLIGHT -->
+<div class="phone-display">
+  <span class="phone-ring">📞</span>
+  <div>
+    <div class="phone-label">Current Tracking Number (appears on all pages)</div>
+    <div class="phone-num"><%= cfg.phone %></div>
+  </div>
+</div>
+
+<!-- SETTINGS FORM -->
+<form method="POST" action="/admin/settings">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+    <!-- Phone & Contact -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">📞 Phone & Contact</span></div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+        <div class="form-group">
+          <label>Tracking Phone Number <span class="label-hint">(shown to visitors)</span></label>
+          <input type="text" name="phone" value="<%= cfg.phone %>" placeholder="(800) 555-0100" required>
+        </div>
+        <div class="form-group">
+          <label>Phone href <span class="label-hint">(tel: format)</span></label>
+          <input type="text" name="phoneHref" value="<%= cfg.phoneHref %>" placeholder="tel:+18005550100" required>
+        </div>
+        <div class="form-group">
+          <label>Contact Email</label>
+          <input type="email" name="email" value="<%= cfg.email %>" placeholder="hello@fyndlocals.com">
+        </div>
+        <div class="alert alert-info" style="font-size:13px;margin:0;">
+          Get your tracking number from <strong>Ringba</strong>, <strong>Service Direct</strong>, or your Pay Per Call network, then paste it here.
+        </div>
+      </div>
+    </div>
+
+    <!-- Site Identity -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">🏷️ Site Identity</span></div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+        <div class="form-group">
+          <label>Site Name</label>
+          <input type="text" name="siteName" value="<%= cfg.siteName %>">
+        </div>
+        <div class="form-group">
+          <label>Tagline</label>
+          <input type="text" name="tagline" value="<%= cfg.tagline %>">
+        </div>
+        <div class="form-group">
+          <label>Hero Headline</label>
+          <input type="text" name="heroTitle" value="<%= cfg.heroTitle %>">
+        </div>
+        <div class="form-group">
+          <label>Hero Description</label>
+          <textarea name="heroDesc"><%= cfg.heroDesc %></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">🔍 SEO</span></div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+        <div class="form-group">
+          <label>Homepage Meta Description</label>
+          <textarea name="metaDescription"><%= cfg.metaDescription %></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tracking & Analytics -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">📊 Tracking & Analytics</span></div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+        <div class="form-group">
+          <label>Google Analytics ID <span class="label-hint">e.g. G-XXXXXXXXXX</span></label>
+          <input type="text" name="googleAnalyticsId" value="<%= cfg.googleAnalyticsId %>" placeholder="G-XXXXXXXXXX">
+        </div>
+        <div class="form-group">
+          <label>Facebook Pixel ID <span class="label-hint">e.g. 123456789</span></label>
+          <input type="text" name="facebookPixelId" value="<%= cfg.facebookPixelId %>" placeholder="123456789">
+        </div>
+        <div class="form-group">
+          <label>Ringba / Call Tracking Number <span class="label-hint">(backup reference)</span></label>
+          <input type="text" name="ringbaNumber" value="<%= cfg.ringbaNumber %>" placeholder="Your Ringba DID">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
+    <a href="/admin" class="btn btn-outline">Cancel</a>
+    <button type="submit" class="btn btn-teal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Save All Settings
+    </button>
+  </div>
+</form>
+
+<!-- CHANGE PASSWORD -->
+<div class="section-title">Security</div>
+<div class="card" style="max-width:520px;">
+  <div class="card-header"><span class="card-title">🔐 Change Password</span></div>
+  <div class="card-body">
+    <form method="POST" action="/admin/change-password" style="display:flex;flex-direction:column;gap:14px;">
+      <div class="form-group">
+        <label>Current Password</label>
+        <input type="password" name="currentPassword" required placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label>New Password <span class="label-hint">(min 8 characters)</span></label>
+        <input type="password" name="newPassword" required placeholder="••••••••">
+      </div>
+      <div class="form-group">
+        <label>Confirm New Password</label>
+        <input type="password" name="confirmPassword" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn btn-outline" style="align-self:flex-start;">
+        Update Password
+      </button>
+    </form>
+  </div>
+</div>
+
+<%- include('layout-bottom') %>

@@ -1,0 +1,68 @@
+<%- include('layout-top') %>
+
+<% if (flash) { %>
+<div class="alert alert-<%= flash.type === 'success' ? 'success' : 'error' %>"><%= flash.msg %></div>
+<% } %>
+
+<div class="alert alert-info">
+  Services are defined in <code style="background:#dbeafe;padding:2px 6px;border-radius:4px;">data/site.js</code>. To add or edit services, update that file and redeploy. Below is a live preview of all active service pages.
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">Active Service Pages</span>
+    <span class="badge badge-teal"><%= services.length %> services</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Icon</th>
+          <th>Service Name</th>
+          <th>URL</th>
+          <th>Starting Price</th>
+          <th>Features</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% services.forEach(s => { %>
+        <tr>
+          <td style="font-size:24px;"><%= s.icon %></td>
+          <td><strong><%= s.name %></strong><br><span style="font-size:12px;color:#5a6a7a;"><%= s.shortDesc %></span></td>
+          <td><code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">/services/<%= s.slug %></code></td>
+          <td><span style="font-weight:600;color:#00b4a0;"><%= s.price %></span></td>
+          <td><span style="font-size:12px;color:#5a6a7a;"><%= s.features.join(' · ') %></span></td>
+          <td>
+            <div style="display:flex;gap:8px;">
+              <a href="/services/<%= s.slug %>" target="_blank" class="btn btn-sm btn-outline">View</a>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-title">Service + City Combo Pages</div>
+<div class="card">
+  <div class="card-header">
+    <span class="card-title">High-Value SEO Combinations</span>
+    <span class="badge badge-amber">Add manually to routes/pages.js</span>
+  </div>
+  <div class="card-body">
+    <p style="font-size:14px;margin-bottom:16px;">These are the highest-converting pages for Pay Per Call. Create them by combining service slugs + city slugs:</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+      <% const topServices = ['deep-cleaning','move-in-out-cleaning','vacation-rental-cleaning'];
+         const topCities = ['miami','houston','atlanta','chicago','orlando'];
+         topServices.forEach(sv => topCities.forEach(ct => { %>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;">
+        <code style="font-size:12px;color:#1a2332;">/<%= sv %>-<%= ct %>/</code>
+      </div>
+      <% })) %>
+    </div>
+  </div>
+</div>
+
+<%- include('layout-bottom') %>

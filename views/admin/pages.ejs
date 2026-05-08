@@ -1,0 +1,92 @@
+<%- include('layout-top') %>
+
+<% if (flash) { %>
+<div class="alert alert-<%= flash.type === 'success' ? 'success' : 'error' %>"><%= flash.msg %></div>
+<% } %>
+
+<!-- Summary Bar -->
+<div class="stats-row" style="margin-bottom:24px;">
+  <div class="stat-card highlight">
+    <div class="stat-card-label">Total Pages</div>
+    <div class="stat-card-value"><%= allPages.length %></div>
+    <div class="stat-card-sub">All live pages</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-label">Core Pages</div>
+    <div class="stat-card-value"><%= allPages.filter(p=>p.type==='Core').length %></div>
+    <div class="stat-card-sub">Homepage, about, etc.</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-label">Service Pages</div>
+    <div class="stat-card-value"><%= allPages.filter(p=>p.type==='Service').length %></div>
+    <div class="stat-card-sub">Cleaning services</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-label">Location Pages</div>
+    <div class="stat-card-value"><%= allPages.filter(p=>p.type==='State'||p.type==='City').length %></div>
+    <div class="stat-card-sub">States + cities</div>
+  </div>
+</div>
+
+<!-- Filter Tabs -->
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;" id="filterTabs">
+  <button class="btn btn-teal btn-sm filter-btn active" onclick="filterPages('All',this)">All (<%= allPages.length %>)</button>
+  <button class="btn btn-outline btn-sm filter-btn" onclick="filterPages('Core',this)">Core</button>
+  <button class="btn btn-outline btn-sm filter-btn" onclick="filterPages('Service',this)">Services</button>
+  <button class="btn btn-outline btn-sm filter-btn" onclick="filterPages('State',this)">States</button>
+  <button class="btn btn-outline btn-sm filter-btn" onclick="filterPages('City',this)">Cities</button>
+</div>
+
+<!-- Pages Table -->
+<div class="card">
+  <div class="table-wrap">
+    <table id="pagesTable">
+      <thead>
+        <tr>
+          <th>Page Name</th>
+          <th>Type</th>
+          <th>URL</th>
+          <th>Phase</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% allPages.forEach(p => { %>
+        <tr data-type="<%= p.type %>">
+          <td><strong><%= p.name %></strong></td>
+          <td>
+            <span class="badge <%= p.type==='Core' ? 'badge-blue' : p.type==='Service' ? 'badge-teal' : p.type==='State' ? 'badge-amber' : 'badge-gray' %>">
+              <%= p.type %>
+            </span>
+          </td>
+          <td><code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;"><%= p.url %></code></td>
+          <td>
+            <% if (p.phase) { %>
+            <span class="badge <%= p.phase===1 ? 'badge-teal' : p.phase===2 ? 'badge-blue' : 'badge-gray' %>">Phase <%= p.phase %></span>
+            <% } else { %>—<% } %>
+          </td>
+          <td>
+            <a href="<%= p.url %>" target="_blank" class="btn btn-sm btn-outline">
+              View →
+            </a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function filterPages(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.remove('btn-teal'); b.classList.add('btn-outline');
+  });
+  btn.classList.add('btn-teal'); btn.classList.remove('btn-outline');
+  document.querySelectorAll('#pagesTable tbody tr').forEach(row => {
+    row.style.display = (type === 'All' || row.dataset.type === type) ? '' : 'none';
+  });
+}
+</script>
+
+<%- include('layout-bottom') %>
